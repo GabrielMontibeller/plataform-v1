@@ -1,0 +1,23 @@
+language: java
+jdk:
+  - oraclejdk11
+before_install:
+  - sudo apt-get update
+  - cd app/
+  - echo "Iniciando"
+  - mkotlinc Main.kt -include-runtime -d Main.jar
+  - cd ..
+  - echo "Dockerizando a aplicacao"
+script:
+  - docker-compose build
+before_deploy:
+  echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+deploy:
+  provider: script
+  script:
+    docker tag plataform-img:latest gabrieldev1999/plataform-img-v:latest;
+    docker push gabrieldev1999/plataform-img-v;
+  on:
+    branch: master
+notifications:
+  email: false
