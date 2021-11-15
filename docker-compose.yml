@@ -1,0 +1,19 @@
+version: '3.4'
+services:  
+  plataform:
+    image: plataform-img
+    restart: always
+    build:
+      context: .
+      dockerfile: app/Dockerfile
+    working_dir: /app
+    environment:
+      TZ: America/Sao_Paulo    
+    ports:
+      - "8092:8080"
+    command: java -jar plataform.jar
+    networks:
+      - plataform-network  
+networks:
+     plataform-network:
+        driver: bridge
