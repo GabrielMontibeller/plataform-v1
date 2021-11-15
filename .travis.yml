@@ -3,6 +3,7 @@ jdk:
   - oraclejdk11
 before_install:
   - sudo apt-get update
+  - kotlin-jvm
   - cd app/
   - echo "Iniciando"
   - kotlinc Main.kt -include-runtime -d Main.jar
